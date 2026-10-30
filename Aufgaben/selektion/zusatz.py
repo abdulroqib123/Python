@@ -48,19 +48,28 @@ klasse = input("Fahrzeugklasse (klein, mittel oder premium): ").lower()
 mietdauer = int(input("Mietdauer (In Tagen): "))
 istZusatz = input("Ist Zusatzversicherung gewünscht? (ja oder nein): ").lower()
 
-kleinPreis = 35
-mittelPreis = 55
-premiumPreis = 90
+preis = 0
 
-kleinIstUnter25 = kleinPreis * mietdauer + 15 * mietdauer
-mittelIstUnter25 = mittelPreis * mietdauer + 15 * mietdauer
-premiumIstUnter25 = premiumPreis * mietdauer + 15 * mietdauer
+if klasse == "klein":
+      preis = 35
+elif klasse == "mittel":
+      preis = 55
+else:
+      preis = 90
 
-kleinAb7 = kleinPreis * 15 / mietdauer
-mittelAb7 = mittelPreis * 15 / mietdauer
-premiumAb7 = premiumPreis * 15 / mietdauer
+unter25 = preis * mietdauer + 15 * mietdauer
 
-kleinZusatzKosten = kleinPreis * mietdauer + 8 * mietdauer
-mittelZusatzKosten = mittelPreis * mietdauer + 8 * mietdauer
-premiumZusatzKosten = premiumPreis * mietdauer + 8 * mietdauer
+Ab7 = preis * 12 / (mietdauer - 7)
 
+zusatzKosten = preis * mietdauer + 8 * mietdauer
+
+endpreis = preis
+
+if klasse == "premium" and alter < 21:
+      print("Nur Personen ab 21 Jahre alt dürfen Premium mieten.")
+else:
+      if alter < 25:
+            endpreis = unter25
+      if mietdauer >= 7:
+            endpreis = preis - Ab7
+            
