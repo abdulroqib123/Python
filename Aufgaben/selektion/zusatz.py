@@ -1,6 +1,5 @@
-"""
 alter = int(input("ALter: "))
-buchungsklasse = input("Buchungsklasse(economy oder business): ")
+buchungsklasse = input("Buchungsklasse(economy oder business): ").lower()
 anzahlGepäckstücke = int(input("Anzahl Gepäckstücke: "))
 istMitglied = input("Bist du mitglied(ja oder nein): ")
 
@@ -19,52 +18,56 @@ gepäckKostenBusiness = (anzahlGepäckstücke - 2) * 35
 gepäckKosten = 0
 ticketPreis = 0
 
-if buchungsklasse == "economy":
-      ticketPreis = economyPreis
+match buchungsklasse:
+      case "economy":
+            ticketPreis = economyPreis
 
-      if anzahlGepäckstücke > 1:
-            gepäckKosten = gepäckKostenEconomy
-      if istMitglied == "ja":
-            ticketPreis = ticketPreis - economyistMitglieder
-      if alter < 18:
-            ticketPreis = ticketPreis - economyIstUnter18
-else:
-      ticketPreis = businessPreis
+            if anzahlGepäckstücke > 1:
+                  gepäckKosten = gepäckKostenEconomy
+            if istMitglied == "ja":
+                  ticketPreis = ticketPreis - economyistMitglieder
+            if alter < 18:
+                  ticketPreis = ticketPreis - economyIstUnter18
 
-      if anzahlGepäckstücke > 2:
-            gepäckKosten = gepäckKostenBusiness
-      if istMitglied == "ja":
-            ticketPreis = ticketPreis - businessistMitglieder
-      if alter < 18:
-            ticketPreis = ticketPreis - businessIstUnter18
+      case "business":
+            ticketPreis = businessPreis
+
+            if anzahlGepäckstücke > 2:
+                  gepäckKosten = gepäckKostenBusiness
+            if istMitglied == "ja":
+                  ticketPreis = ticketPreis - businessistMitglieder
+            if alter < 18:
+                  ticketPreis = ticketPreis - businessIstUnter18
 
 print(f"Ticketpreis: {ticketPreis}")
 print(f"Gepäckkosten: {gepäckKosten}")
 print(f"Gesamtpreis: {ticketPreis + gepäckKosten}")
-"""
 
+"""
+## AUFGABE 2
 alter = int(input("ALter: "))
-klasse = input("Fahrzeugklasse (klein, mittel oder premium): ").lower()
+klasse = input("Fahrzeugklasse (klein, mitte oder premium): ").lower()
 mietdauer = int(input("Mietdauer (In Tagen): "))
 istZusatz = input("Ist Zusatzversicherung gewünscht? (ja oder nein): ").lower()
 
 preis = 0
 
-if klasse == "klein":
-      preis = 35
-elif klasse == "mittel":
-      preis = 55
-else:
-      preis = 90
+match klasse:
+      case "klein":
+            preis = 35
+      case "mitte":
+            preis = 55
+      case "":
+            preis = 90
 
 unter25 = preis * mietdauer + 15 * mietdauer
 
-Ab7 = preis * 12 / (mietdauer - 7)
+Ab7 = preis * 12
 
-zusatzKosten = preis * mietdauer + 8 * mietdauer
+## zusatzKosten = preis * mietdauer + 8 * mietdauer
 
 endpreis = preis
-
+ 
 if klasse == "premium" and alter < 21:
       print("Nur Personen ab 21 Jahre alt dürfen Premium mieten.")
 else:
@@ -72,4 +75,7 @@ else:
             endpreis = unter25
       if mietdauer >= 7:
             endpreis = preis - Ab7
-            
+      if istZusatz == "ja":
+            endpreis = preis * mietdauer + 8 * mietdauer
+print(f"Endpreis: {endpreis}")
+"""
